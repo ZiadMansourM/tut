@@ -12,7 +12,7 @@ A command-line tool to streamline the management of multiple GitHub accounts.
 
 **Download Pre-built Binaries**
 
-1.  Visit the latest release page: [https://github.com/ZiadMansourM/tut/releases/latest](https://github.com/your-username/tut/releases/latest)
+1.  Visit the latest release page: [https://github.com/ZiadMansourM/tut/releases](https://github.com/ZiadMansourM/tut/releases)
 2.  Download the appropriate `.tgz` archive for your operating system and architecture (e.g., `tut_linux_amd64.tgz`).
 3.  Extract the archive: `tar -xzvf tut_linux_amd64.tgz`
 4.  Move the `tut` binary into a directory in your PATH (e.g., `/usr/local/bin`).
