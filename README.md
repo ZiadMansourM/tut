@@ -1,6 +1,6 @@
 # tut
 
-A command-line tool to streamline the management of multiple GitHub accounts.
+A command-line tool to ease the management of multiple GitHub accounts from the same workstation.
 
 ## Features
 
@@ -29,10 +29,27 @@ email = ziadh@work.com
 > [!IMPORTANT]
 > Make sure to prefex each section with `account.`
 
+6. Edit your `$HOME/.gitconfig` to include this:
+```.ini
+[include]
+path = ~/.tut/.gitconfig
+```
+
 ## Usage
-1.  **Switch Accounts:** `tut`.
-2.  **Version**: `tut version`.
-3.  **List Accounts:** `tut list`.
+If you use one workstation to contribute to projects for more than one account on GitHub.com, you can modify your Git configuration to simplify the contribution process. There are many ways you can achieve that. [Read here for more details](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-your-personal-account/managing-multiple-accounts).
+
+> [!WARNING]
+> Please, be aware that `tut` supports only using two differnet protocols
+> for each account. E.g. use ssh for your personal account and https for work account.
+
+The protocol you use to clone a repository determines which credentials your workstation will use to authenticate when you access the repository. That is exacly why we choose this approach.
+
+1. Configure your personal account with ssh access.
+2. Configure your work account with https access.
+3. Create the `$HOME/.tut/.ini` file as described above.
+4. Edit `$HOME/.gitconfig` as described above.
+5. Clone a private repo from both of your accounts, you should have no problem on doing that.
+6. Before you make any changes run `tut` and choose correct account. Other than that the wrong github username and email will appear in the commit messages.
 
 ## Contribution Guidelines
 
