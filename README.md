@@ -30,8 +30,9 @@ email = ziadh@work.com
 > Make sure to prefex each section with `account.`
 
 ## Usage
-1.  **List Accounts:** `tut list`.
-2.  **Switch Accounts:** `tut`.
+1.  **Switch Accounts:** `tut`.
+2.  **Version**: `tut version`.
+3.  **List Accounts:** `tut list`.
 
 ## Contribution Guidelines
 
