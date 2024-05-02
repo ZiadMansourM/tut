@@ -25,7 +25,6 @@ sshCommand = ssh -i ~/.ssh/ziadmansourm
 [account.b]
 name = ziadmmh
 email = ziadh@work.com
-sshCommand = ssh -i ~/.ssh/ziadmmh
 ```
 > [!IMPORTANT]
 > Make sure to prefex each section with `account.`
