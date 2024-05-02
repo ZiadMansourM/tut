@@ -4,16 +4,19 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 
 	"github.com/go-ini/ini"
 	"github.com/spf13/cobra"
 )
 
+const tutVersion = "v0.2.0"
+
 type Account struct {
 	Name        string `ini:"name"`
 	Email       string `ini:"email"`
-	SSHCommand  string `ini:"sshCommand"`
+	SSHCommand  string `ini:"sshCommand,optional"`
 	Description string `ini:"description,optional"`
 }
 
@@ -75,9 +78,17 @@ func parseConfig(cfg *ini.File) (GitConfig, error) {
 }
 
 func createLocalConfig(account Account) error {
-	content := []byte(fmt.Sprintf(
-		"[user]\n\tname = %s\n\temail = %s\n[core]\n\tsshCommand = %s\n",
-		account.Name, account.Email, account.SSHCommand))
+	var content []byte
+
+	if account.SSHCommand == "" {
+		content = []byte(fmt.Sprintf(
+			"[user]\n\tname = %s\n\temail = %s\n",
+			account.Name, account.Email))
+	} else {
+		content = []byte(fmt.Sprintf(
+			"[user]\n\tname = %s\n\temail = %s\n[core]\n\tsshCommand = %s\n",
+			account.Name, account.Email, account.SSHCommand))
+	}
 
 	// Create the .gitconfig file (overwrites existing ones)
 	configPath := getLocalGitConfigPath()
@@ -116,7 +127,15 @@ func interactive(config GitConfig) {
 	if err != nil {
 		fmt.Println("Error loading live config:", err)
 	}
-	for shortcut, account := range config.Accounts {
+	// Sort accounts by shortcut
+	var shortcuts []string
+	for shortcut := range config.Accounts {
+		shortcuts = append(shortcuts, shortcut)
+	}
+	sort.Strings(shortcuts)
+
+	for _, shortcut := range shortcuts {
+		account := config.Accounts[shortcut]
 		if account == liveConfig {
 			fmt.Printf("\033[32m[%s] %s (%s)\033[0m\n", shortcut, account.Name, account.Email) // Yellow text
 		} else {
@@ -184,8 +203,22 @@ func main() {
 		},
 	}
 
+	versionCmd := &cobra.Command{
+		Use:   "version",
+		Short: "Print the version of tut",
+		Run: func(cmd *cobra.Command, args []string) {
+			// Color codes
+			blue := "\033[34m" // Blue color
+			reset := "\033[0m" // Reset color
+
+			fmt.Println("Version:", blue+tutVersion+reset)
+			fmt.Println("Author:", blue+"Ziad Hassanin"+reset)
+			fmt.Println("GitHub Repo:", blue+"https://github.com/ZiadMansourM/tut"+reset)
+		},
+	}
+
 	// Add commands
-	rootCmd.AddCommand(listCmd, addCmd, editCmd)
+	rootCmd.AddCommand(listCmd, addCmd, versionCmd, editCmd)
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)

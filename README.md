@@ -16,7 +16,7 @@ A command-line tool to streamline the management of multiple GitHub accounts.
 2.  Download the appropriate `.tgz` archive for your operating system and architecture (e.g., `tut_linux_amd64.tgz`).
 3.  Extract the archive: `tar -xzvf tut_linux_amd64.tgz`
 4.  Move the `tut` binary into a directory in your PATH (e.g., `/usr/local/bin`).
-5.  Add inside `$HOME/.tut/.ini` file, your account credentials jsut as the following:
+5.  Add inside `$HOME/.tut/.ini` file, your account credentials just as the following:
 ```.ini
 [account.a]
 name = ZiadMansourM

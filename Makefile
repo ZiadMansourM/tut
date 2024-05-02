@@ -1,7 +1,7 @@
 GOOS_LIST = linux darwin
 GOARCH_LIST = amd64 arm64
 
-all: build
+all: clean release
 
 build:
 	@for GOOS in $(GOOS_LIST); do \
